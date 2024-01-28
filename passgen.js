@@ -19,19 +19,26 @@ function generatePassword(length,numbers,lowercase,uppercase,symbol,noDuplicates
     if(numbers) characters+="1234567890";
     if(lowercase) characters+="abcdefghijklmnopqrstuvwxyz";
     if(uppercase) characters+="ABCDEFGHJKLMNOPQRSTUVWXYZ";
-    if(symbol) characters+="`~!@#$%^&*()-=_+,./;'<>?:{}[]|";
+    if(symbol) characters+="!@#$%^&*()_+=-";
     if(spaces) characters+=" ";
+
+    if(noDuplicates && (length>characters.length)){
+        alert("Insufficient characters for derised password without duplicates!");
+        return '';
+    }
 
     let passwordArray = [];
 
     while(passwordArray.length < length){
         const character =characters[Math.floor(Math.random()*characters.length)];
         console.log(character);
+
+        if(spaces && (passwordArray.length == length-1) && (character==' ')) continue;
+
         if(!noDuplicates || !passwordArray.includes(character)){
             passwordArray.push(character);
         }
     }
-    //console.log(passwordArray.length);
-    //console.log(passwordArray.join('+'));
+
     return passwordArray.join('');
 }
